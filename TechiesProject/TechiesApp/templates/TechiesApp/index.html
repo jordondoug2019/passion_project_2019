@@ -5,6 +5,12 @@
     <title>Techies</title>
 </head>
 <body>
-
+    <h1>Techies</h1>
+    <form id="LoginForm" method="post">
+        {%csrf_token%}
+        {{loginForm.as_p}}
+        <button>Submit</button>
+    </form>
+    <h2>Not a member? Sign up <a href="{%url 'signUp'%}">here</a></h2>
 </body>
 </html>

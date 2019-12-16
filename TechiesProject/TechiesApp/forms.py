@@ -5,7 +5,14 @@ from .models import CustomUser, Event
 class UserRegistration(ModelForm):
     class Meta:
         model = CustomUser
-        fields = '__all__'
+        fields = ['first_name', 'last_name', 'username', 'email', 'age_group', 'skill_level', 'tech_experience',
+                  'password']
+
+
+class UserLogin(ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['email', 'password']
 
 
 class UserProfileForm(ModelForm):

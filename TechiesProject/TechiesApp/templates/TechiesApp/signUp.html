@@ -2,9 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sign Up</title>
 </head>
 <body>
-
+<h1> Sign up Below</h1>
+<form id="signupForm" method="post">
+        {%csrf_token%}
+     {{UserRegistration.as_p}}
+    <button>Submit</button>
+</form>
+<a href="{%url 'logIn'%}">Back</a>
 </body>
 </html>
