@@ -117,4 +117,4 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'TechiesApp/')
 
-AUTH_USER_MODEL = 'TechiesApp.CustomUser'
+AUTH_USER_MODEL = 'TechiesApp.User'

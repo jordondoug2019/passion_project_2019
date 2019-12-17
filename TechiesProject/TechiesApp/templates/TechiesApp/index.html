@@ -6,7 +6,12 @@
 </head>
 <body>
     <h1>Techies</h1>
+
+
     <form id="LoginForm" method="post">
+        {%for message in messages%}
+        {{message}}
+        {%endfor%}
         {%csrf_token%}
         {{loginForm.as_p}}
         <button>Submit</button>

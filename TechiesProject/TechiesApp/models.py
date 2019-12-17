@@ -1,17 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from datetime import date
 
 # Create your models here.
+
+
 age_choices = (
-    ('Youth', '17 and Younger'),
-    ('Young Adult', '18-25'),
-    ('Adult', '26+')
+    ('Youth', '18 and Younger'),
+    ('Young Adult', '18-20'),
+    ('Adult', '21+'),
+    ('All Ages', 'All Ages'),
 )
 
 skill_choices = (
     ('Newbie', '2 years or less'),
     ('Intermediate', '3-5 years'),
-    ('Experienced', '5+')
+    ('Experienced', '5+'),
+    ('No Skill Level', 'No Skill level')
 )
 tech_experience_choices = (
     ('Education', 'Education'),
@@ -38,7 +43,7 @@ programming_language_choices = (
 )
 
 
-class CustomUser(AbstractUser):
+class User(AbstractUser):
     pass
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -58,11 +63,14 @@ class CustomUser(AbstractUser):
 class Event(models.Model):
     event_name = models.CharField(max_length=600)
     location = models.CharField(max_length=600)
+    time = models.CharField(max_length=50, null=True, blank=True)
+    date = models.DateField(default=date.today)
+    organization = models.CharField(max_length=300, null=True, blank=True)
     event_image = models.ImageField(upload_to='media', null=True, blank=True)
     description = models.CharField(max_length=6000)
-    event_skill_level = models.CharField(max_length=60, choices=skill_choices)
-    event_age_group = models.CharField(max_length=50, choices=age_choices)
-    programming_language = models.CharField(max_length=60, choices=programming_language_choices)
+    event_skill_level = models.CharField(max_length=60, choices=skill_choices, null=True, blank=True)
+    event_age_group = models.CharField(max_length=50, choices=age_choices, null=True, blank=True)
+    programming_language = models.CharField(max_length=60, choices=programming_language_choices, null=True, blank=True)
     event_category = models.CharField(max_length=60, choices=tech_experience_choices)
 
     def __str__(self):
