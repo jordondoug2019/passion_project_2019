@@ -12,10 +12,16 @@ class UserProfileline(admin.StackedInline):
 
 class UserAdmin(BaseUserAdmin):
     inlines = (UserProfileline,)
+    list_filter = ()
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        ('Personal info', {'fields': ()}),
+        ('Permissions', {'fields': ()}),
+    )
 
 
 # Register your models here.
 
-admin.site.unregister(User)
+admin.site.register(User)
 admin.site.register(UserProfile, UserAdmin),
 admin.site.register(Event)

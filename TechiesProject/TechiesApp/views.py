@@ -1,9 +1,11 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
-from .models import User, Event
+from .models import Event
 from .forms import UserRegistration, UserProfileForm, UserLogin
 from django.contrib.auth import login, logout, authenticate, get_user_model
-from django.contrib.auth.models import User
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
 
 
 # Create your views here.
@@ -80,10 +82,10 @@ def home(request):
         'NewbieSkillChoices': Event.objects.filter(event_skill_level='Newbie'),
         'IntermediateSkillChoices': Event.objects.filter(event_skill_level='Intermediate'),
         'ExperiencedSkillChoices': Event.objects.filter(event_skill_level='Experienced'),
-        'EducationChoices':  Event.objects.filter(event_category="Education"),
-        'SocialChoices':   Event.objects.filter(event_category="Social"),
+        'EducationChoices': Event.objects.filter(event_category="Education"),
+        'SocialChoices': Event.objects.filter(event_category="Social"),
         'ConferenceChoices': Event.objects.filter(event_category="Conference"),
-        'YouthProgramChoices':  Event.objects.filter(event_category='Youth Programs ')
+        'YouthProgramChoices': Event.objects.filter(event_category='Youth Programs ')
     }
     return render(request, 'TechiesApp/home.html', context)
 

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
 
 MIDDLEWARE = [
@@ -116,4 +117,4 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'TechiesApp/')
 
-# AUTH_USER_MODEL = 'TechiesApp.User'
+AUTH_USER_MODEL = 'TechiesApp.UserProfile'

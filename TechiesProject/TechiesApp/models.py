@@ -1,8 +1,9 @@
+from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager, User
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from datetime import date
 from django.contrib.auth import get_user_model
-
+User = settings.AUTH_USER_MODEL
 # Create your models here.
 
 
@@ -44,7 +45,7 @@ programming_language_choices = (
 )
 
 
-class UserProfile(models.Model):
+class UserProfile(AbstractUser):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -55,6 +56,10 @@ class UserProfile(models.Model):
     skill_level = models.CharField(max_length=50, choices=skill_choices, default="Newbie")
     tech_experience = models.CharField(max_length=50, choices=tech_experience_choices, default="Education")
     password = models.CharField(max_length=15, verbose_name="Password", unique=True)
+    is_staff = models.BooleanField(default=False),
+    is_active = models.BooleanField(default=True),
+    is_superuser = models.BooleanField(default=False)
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} {self.email} {self.username} {self.age_group} {self.skill_level}" \
