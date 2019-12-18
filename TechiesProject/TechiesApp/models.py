@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from datetime import date
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 
@@ -48,8 +49,8 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     user_image = models.ImageField(upload_to='media', null=True, blank=True)
-    email = models.EmailField(max_length=254, verbose_name="Email", unique=True)
-    username = models.CharField(max_length=60, unique=True)
+    email = models.EmailField(max_length=254, unique=True)
+    username = models.CharField(max_length=40, blank=True, unique=True)
     age_group = models.CharField(max_length=50, choices=age_choices, default="Youth")
     skill_level = models.CharField(max_length=50, choices=skill_choices, default="Newbie")
     tech_experience = models.CharField(max_length=50, choices=tech_experience_choices, default="Education")
