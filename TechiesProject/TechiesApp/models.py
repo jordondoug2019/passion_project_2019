@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager, User
 from datetime import date
 from django.contrib.auth import get_user_model
 
@@ -44,8 +44,8 @@ programming_language_choices = (
 )
 
 
-class User(AbstractUser):
-    pass
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     user_image = models.ImageField(upload_to='media', null=True, blank=True)

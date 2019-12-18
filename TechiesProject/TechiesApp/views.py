@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_
 from .models import User, Event
 from .forms import UserRegistration, UserProfileForm, UserLogin
 from django.contrib.auth import login, logout, authenticate, get_user_model
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -12,7 +13,7 @@ def index(request):
         user_login = authenticate(username=request.POST['username'], password=request.POST["password"])
         if user_login is not None:
             login(request, user_login)
-            print('logged in')
+            print(User.objects.tech_experience)
             return redirect('home')
         else:
             messages.error(request, "Email or Password is incorrect")
@@ -48,39 +49,41 @@ def signup(request):
 
 def home(request):
     if request.user.is_authenticated:
-        if User.age_group == 'Youth':
-            Event.event_age_group.filter('Youth')
-        if User.age_group == 'Young Adult':
-            Event.event_age_group.filter('Young Adult')
-        if User.age_group == 'Adult':
-            Event.event_age_group.filter('Adult')
-        if User.skill_level == 'Newbie':
-            Event.event_skill_level.filter('Newbie')
-        if User.skill_level == "Intermediate":
-            Event.event_skill_level.filter('Intermediate')
-        if User.skill_level == "Experienced":
-            Event.event_skill_level.filter('Experienced')
-        if User.tech_experience == 'Education':
-            Event.event_category.filter("Education")
-        if User.tech_experience == 'Social':
-            Event.event_category.filter("Social")
-        if User.tech_experience == 'Conference':
-            Event.event_category.filter("Conference")
-        if User.tech_experience == 'Special Events':
-            Event.event_category.filter('Special Events')
-        if User.tech_experience == 'Youth Programs':
-            Event.event_category.filter('Youth Programs ')
+        if User.objects.filter(age_group="Youth"):
+            Event.objects.filter(event_age_group='Youth')
+        if User.objects.filter(age_group="Young Adult"):
+            Event.objects.filter(event_age_group='Young Adult')
+        if User.objects.filter(age_group='Adult'):
+            Event.objects.filter(event_age_group='Adult')
+        if User.objects.filter(age_group="All Ages"):
+            Event.objects.filter(event_age_group="All Ages")
+        if User.objects.filter(skill_level="Newbie"):
+            Event.objects.filter(event_skill_level='Newbie')
+        if User.objects.filter(skill_level="Intermediate"):
+            Event.objects.filter(event_skill_level='Intermediate')
+        if User.objects.filter(skill_level="Experienced"):
+            Event.objects.filter(event_skill_level='Experienced')
+        if User.objects.filter(tech_experience="Education"):
+            Event.objects.filter(event_category="Education")
+        if User.objects.filter(tech_experience='Social'):
+            Event.objects.filter(event_category="Social")
+        if User.objects.filter(tech_experience="Conference"):
+            Event.objects.filter(event_category="Conference")
+        if User.objects.filter(tech_experience='Special Events'):
+            Event.objects.filter(event_category='Special Events')
+        if User.objects.filter(tech_experience="Youth Programs"):
+            Event.objects.filter(event_category='Youth Programs ')
     context = {
-        'YouthAgeGroupChoices': Event.event_age_group == 'Youth',
-        'YoungAdultAgeGroupChoices': Event.event_age_group == 'Young Adult',
-        'AdultAgeGroupChoices': Event.event_age_group == 'Adult',
-        'NewbieSkillChoices': Event.event_skill_level == 'Newbie',
-        'IntermediateSkillChoices': Event.event_skill_level == 'Intermediate',
-        'ExperiencedSkillChoices': Event.event_skill_level == 'Experienced',
-        'EducationChoices': Event.event_category == "Education",
-        'SocialChoices': Event.event_category == "Social",
-        'ConferenceChoices': Event.event_category == "Conference",
-        'YouthProgramChoices': Event.event_category == 'Youth Programs '
+        'YouthAgeGroupChoices': Event.objects.filter(event_age_group='Youth'),
+        'YoungAdultAgeGroupChoices': Event.objects.filter(event_age_group='Young Adult'),
+        'AdultAgeGroupChoices': Event.objects.filter(event_age_group='Adult'),
+        'NewbieSkillChoices': Event.objects.filter(event_skill_level='Newbie'),
+        'IntermediateSkillChoices': Event.objects.filter(event_skill_level='Intermediate'),
+        'ExperiencedSkillChoices': Event.objects.filter(event_skill_level='Experienced'),
+        'EducationChoices':  Event.objects.filter(event_category="Education"),
+        'SocialChoices':   Event.objects.filter(event_category="Social"),
+        'ConferenceChoices': Event.objects.filter(event_category="Conference"),
+        'YouthProgramChoices':  Event.objects.filter(event_category='Youth Programs ')
     }
     return render(request, 'TechiesApp/home.html', context)
 
